@@ -1,0 +1,39 @@
+# Example /etc/fstab entries for Plex bind mounts
+# 
+# These are example entries for your Proxmox CT bind mounts.
+# You need to adjust the source paths based on your actual Proxmox configuration.
+#
+# To find your actual mount configuration:
+# 1. On the Proxmox host, check your CT configuration:
+#    cat /etc/pve/lxc/<CTID>.conf | grep mp
+#
+# 2. This will show entries like:
+#    mp0: /mnt/host/media,mp=/mnt/mp0
+#    mp1: /mnt/host/movies,mp=/mnt/mp1
+#    mp2: /mnt/host/tv,mp=/mnt/mp2
+#
+# 3. Use the source paths (first part) and mount points (mp= part) to create
+#    your /etc/fstab entries below.
+#
+# Format: <source> <mount_point> <type> <options> <dump> <pass>
+
+# Example bind mount entries (ADJUST THESE TO YOUR ACTUAL PATHS):
+# /mnt/host/media    /mnt/mp0    none    bind,defaults    0    0
+# /mnt/host/movies   /mnt/mp1    none    bind,defaults    0    0
+# /mnt/host/tv       /mnt/mp2    none    bind,defaults    0    0
+
+# Alternative example if your mounts are in different locations:
+# /media/storage/plex/media    /mnt/mp0    none    bind,defaults    0    0
+# /media/storage/plex/movies   /mnt/mp1    none    bind,defaults    0    0
+# /media/storage/plex/tv       /mnt/mp2    none    bind,defaults    0    0
+
+# After adding your entries:
+# 1. Create mount point directories if they don't exist:
+#    mkdir -p /mnt/mp0 /mnt/mp1 /mnt/mp2
+#
+# 2. Test mounting:
+#    mount -a
+#
+# 3. Verify mounts:
+#    mount | grep mp
+#    df -h | grep mp
